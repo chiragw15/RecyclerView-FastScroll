@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
 
+def SUPPORT_LIB_VERSION = "24.0.0"
+
 android {
     compileSdkVersion 24
     buildToolsVersion "24.0.0"
@@ -30,4 +32,7 @@ dependencies {
 
     //RecyclerView-FastScroll
     compile project(':recyclerview-fastscroll')
+
+    compile "com.android.support:support-v4:${SUPPORT_LIB_VERSION}"
+    compile "com.android.support:design:${SUPPORT_LIB_VERSION}"
 }

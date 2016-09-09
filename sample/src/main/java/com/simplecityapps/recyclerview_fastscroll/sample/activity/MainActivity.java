@@ -16,6 +16,9 @@
 
 package com.simplecityapps.recyclerview_fastscroll.sample.activity;
 
+import android.app.ActionBar;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -25,6 +28,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.simplecityapps.recyclerview_fastscroll.sample.R;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
@@ -35,43 +39,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        FastScrollRecyclerView recyclerView = (FastScrollRecyclerView) findViewById(R.id.recycler);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new RecyclerAdapter());
-    }
-
-    private static class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder>
-            implements FastScrollRecyclerView.SectionedAdapter {
-
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false));
-        }
-
-        @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
-            holder.text.setText(String.format("Item %d", position));
-        }
-
-        @Override
-        public int getItemCount() {
-            return 100;
-        }
-
-        @NonNull
-        @Override
-        public String getSectionName(int position) {
-            return String.valueOf(position);
-        }
-
-        static class ViewHolder extends RecyclerView.ViewHolder {
-            public TextView text;
-
-            public ViewHolder(View itemView) {
-                super(itemView);
-                text = (TextView) itemView.findViewById(R.id.text);
-            }
-        }
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.content_frame, new MainFragment()).commit();
     }
 }
